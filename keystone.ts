@@ -22,8 +22,11 @@ console.log('DATABASE_URL:', process.env.DATABASE_URL)
 export default withAuth(
   config({
     db: {
+      //  provider: 'sqlite',
+      // url: 'file:./app.db' ,
       provider: 'postgresql',
       url: process.env.DATABASE_URL || 'DATABASE_URL_TO_REPLACE',
+      
     },
     lists,
     session,
