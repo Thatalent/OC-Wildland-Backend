@@ -60,12 +60,23 @@ export const lists = {
     },
   }),
 
-  Footer: list({
+  
+  // Footer: list({
+  //   access: allowAll,
+  //   fields: {
+  //     text: document({
+  //         formatting: true,
+  //         validation: { isRequired: true } }),
+  //   },
+  // }),
+
+  Testimony: list({
     access: allowAll,
     fields: {
-      text: document({
-          formatting: true,
-          validation: { isRequired: true } }),
+      name: text({ validation: { isRequired: true } }),
+      role: text(),
+      message: text({ ui: { displayMode: 'textarea' } }),
+      imageUrl: text(),
     },
   }),
 

@@ -140,41 +140,54 @@ input PostRelateToManyForCreateInput {
   connect: [PostWhereUniqueInput!]
 }
 
-type Footer {
+type Testimony {
   id: ID!
-  text: Footer_text_Document
+  name: String
+  role: String
+  message: String
+  imageUrl: String
 }
 
-type Footer_text_Document {
-  document(hydrateRelationships: Boolean! = false): JSON!
-}
-
-input FooterWhereUniqueInput {
+input TestimonyWhereUniqueInput {
   id: ID
 }
 
-input FooterWhereInput {
-  AND: [FooterWhereInput!]
-  OR: [FooterWhereInput!]
-  NOT: [FooterWhereInput!]
+input TestimonyWhereInput {
+  AND: [TestimonyWhereInput!]
+  OR: [TestimonyWhereInput!]
+  NOT: [TestimonyWhereInput!]
   id: IDFilter
+  name: StringFilter
+  role: StringFilter
+  message: StringFilter
+  imageUrl: StringFilter
 }
 
-input FooterOrderByInput {
+input TestimonyOrderByInput {
   id: OrderDirection
+  name: OrderDirection
+  role: OrderDirection
+  message: OrderDirection
+  imageUrl: OrderDirection
 }
 
-input FooterUpdateInput {
-  text: JSON
+input TestimonyUpdateInput {
+  name: String
+  role: String
+  message: String
+  imageUrl: String
 }
 
-input FooterUpdateArgs {
-  where: FooterWhereUniqueInput!
-  data: FooterUpdateInput!
+input TestimonyUpdateArgs {
+  where: TestimonyWhereUniqueInput!
+  data: TestimonyUpdateInput!
 }
 
-input FooterCreateInput {
-  text: JSON
+input TestimonyCreateInput {
+  name: String
+  role: String
+  message: String
+  imageUrl: String
 }
 
 type Post {
@@ -309,12 +322,12 @@ type Mutation {
   updateUsers(data: [UserUpdateArgs!]!): [User]
   deleteUser(where: UserWhereUniqueInput!): User
   deleteUsers(where: [UserWhereUniqueInput!]!): [User]
-  createFooter(data: FooterCreateInput!): Footer
-  createFooters(data: [FooterCreateInput!]!): [Footer]
-  updateFooter(where: FooterWhereUniqueInput!, data: FooterUpdateInput!): Footer
-  updateFooters(data: [FooterUpdateArgs!]!): [Footer]
-  deleteFooter(where: FooterWhereUniqueInput!): Footer
-  deleteFooters(where: [FooterWhereUniqueInput!]!): [Footer]
+  createTestimony(data: TestimonyCreateInput!): Testimony
+  createTestimonies(data: [TestimonyCreateInput!]!): [Testimony]
+  updateTestimony(where: TestimonyWhereUniqueInput!, data: TestimonyUpdateInput!): Testimony
+  updateTestimonies(data: [TestimonyUpdateArgs!]!): [Testimony]
+  deleteTestimony(where: TestimonyWhereUniqueInput!): Testimony
+  deleteTestimonies(where: [TestimonyWhereUniqueInput!]!): [Testimony]
   createPost(data: PostCreateInput!): Post
   createPosts(data: [PostCreateInput!]!): [Post]
   updatePost(where: PostWhereUniqueInput!, data: PostUpdateInput!): Post
@@ -353,9 +366,9 @@ type Query {
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput! = {}, orderBy: [UserOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: UserWhereUniqueInput): [User!]
   usersCount(where: UserWhereInput! = {}): Int
-  footer(where: FooterWhereUniqueInput!): Footer
-  footers(where: FooterWhereInput! = {}, orderBy: [FooterOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: FooterWhereUniqueInput): [Footer!]
-  footersCount(where: FooterWhereInput! = {}): Int
+  testimony(where: TestimonyWhereUniqueInput!): Testimony
+  testimonies(where: TestimonyWhereInput! = {}, orderBy: [TestimonyOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: TestimonyWhereUniqueInput): [Testimony!]
+  testimoniesCount(where: TestimonyWhereInput! = {}): Int
   post(where: PostWhereUniqueInput!): Post
   posts(where: PostWhereInput! = {}, orderBy: [PostOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: PostWhereUniqueInput): [Post!]
   postsCount(where: PostWhereInput! = {}): Int
