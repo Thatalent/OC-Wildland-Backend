@@ -20,6 +20,19 @@ model User {
   createdAt DateTime? @default(now())
 }
 
+model Program {
+  id                  String  @id @default(cuid())
+  title               String  @default("")
+  slug                String  @unique @default("")
+  summary             String  @default("")
+  price               Int
+  thumbnail_id        String?
+  thumbnail_filesize  Int?
+  thumbnail_width     Int?
+  thumbnail_height    Int?
+  thumbnail_extension String?
+}
+
 model Footer {
   id   String @id @default(cuid())
   text Json   @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
