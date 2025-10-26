@@ -16,6 +16,7 @@ import {
   password,
   timestamp,
   select,
+  integer,
 } from '@keystone-6/core/fields'
 
 // the document field is a more complicated field, so it has it's own package
@@ -64,8 +65,7 @@ export const lists = {
     access: allowAll,
     fields: {
       text: document({
-          formatting: true,
-          validation: { isRequired: true } }),
+          formatting: true }),
     },
   }),
 
@@ -135,7 +135,6 @@ export const lists = {
     },
   }),
 
-  // this last list is our Tag list, it only has a name field for now
   Tag: list({
     // WARNING
     //   for this starter project, anyone can create, query, update and delete anything
@@ -153,6 +152,93 @@ export const lists = {
       name: text(),
       // this can be helpful to find out all the Posts associated with a Tag
       posts: relationship({ ref: 'Post.tags', many: true }),
+    },
+  }),
+
+  KPIstats: list({
+    access: allowAll,
+    graphql: {
+      plural: 'kpiStatistics'
+    },
+
+    fields: {
+      name: text({
+        validation: { isRequired: true },
+        db: { isNullable: false },
+      }),
+
+      groupsTrained: integer({
+        validation: { isRequired: true },
+        defaultValue: 0,
+      }),
+
+      clientSatisfaction: integer({
+        validation: { 
+          isRequired: true,
+          min: 0,
+          max: 100
+        },
+        defaultValue: 0,
+        ui: {
+          description: 'Client satisfaction rate (0-100%)'
+        }
+      }),
+
+      yearsOfExperience: integer({
+        validation: { 
+          isRequired: true,
+          min: 0
+        },
+        defaultValue: 0,
+        ui: {
+          description: 'Years of experience in the field'
+        }
+      }),
+
+      trainedFirefighters: integer({
+        validation: { 
+          isRequired: true,
+          min: 0
+        },
+        defaultValue: 0,
+        ui: {
+          description: 'Total number of firefighters trained'
+        }
+      }),
+
+      successRate: integer({
+        validation: { 
+          isRequired: true,
+          min: 0,
+          max: 100
+        },
+        defaultValue: 0,
+        ui: {
+          description: 'Program success rate (0-100%)'
+        }
+      }),
+
+      createdAt: timestamp({
+        defaultValue: { kind: "now" },
+      }),
+
+      updatedAt: timestamp({
+        defaultValue: { kind: "now" },
+      }),
+    },
+
+    ui: {
+      labelField: "name",
+      listView: {
+        initialColumns: [
+          "name",
+          "groupsTrained",
+          "clientSatisfaction",
+          "yearsOfExperience",
+          "trainedFirefighters",
+          "successRate",
+        ],
+      },
     },
   }),
 } satisfies Lists

@@ -41,3 +41,15 @@ model Tag {
   name  String @default("")
   posts Post[] @relation("Post_tags")
 }
+
+model KPIstats {
+  id                  String    @id @default(cuid())
+  name                String    @default("")
+  groupsTrained       Int       @default(0)
+  clientSatisfaction  Int       @default(0)
+  yearsOfExperience   Int       @default(0)
+  trainedFirefighters Int       @default(0)
+  successRate         Int       @default(0)
+  createdAt           DateTime? @default(now())
+  updatedAt           DateTime? @default(now())
+}
