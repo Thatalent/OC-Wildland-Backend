@@ -297,6 +297,77 @@ input TagCreateInput {
   posts: PostRelateToManyForCreateInput
 }
 
+type TeamMember {
+  id: ID!
+  avatar: ImageFieldOutput
+  name: String
+  title: String
+  roleDescription: String
+}
+
+type ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  url: String!
+}
+
+enum ImageExtension {
+  jpg
+  png
+  webp
+  gif
+}
+
+input TeamMemberWhereUniqueInput {
+  id: ID
+}
+
+input TeamMemberWhereInput {
+  AND: [TeamMemberWhereInput!]
+  OR: [TeamMemberWhereInput!]
+  NOT: [TeamMemberWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  title: StringFilter
+  roleDescription: StringFilter
+}
+
+input TeamMemberOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  title: OrderDirection
+  roleDescription: OrderDirection
+}
+
+input TeamMemberUpdateInput {
+  avatar: ImageFieldInput
+  name: String
+  title: String
+  roleDescription: String
+}
+
+input ImageFieldInput {
+  upload: Upload!
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+input TeamMemberUpdateArgs {
+  where: TeamMemberWhereUniqueInput!
+  data: TeamMemberUpdateInput!
+}
+
+input TeamMemberCreateInput {
+  avatar: ImageFieldInput
+  name: String
+  title: String
+  roleDescription: String
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -327,6 +398,12 @@ type Mutation {
   updateTags(data: [TagUpdateArgs!]!): [Tag]
   deleteTag(where: TagWhereUniqueInput!): Tag
   deleteTags(where: [TagWhereUniqueInput!]!): [Tag]
+  createTeamMember(data: TeamMemberCreateInput!): TeamMember
+  createTeamMembers(data: [TeamMemberCreateInput!]!): [TeamMember]
+  updateTeamMember(where: TeamMemberWhereUniqueInput!, data: TeamMemberUpdateInput!): TeamMember
+  updateTeamMembers(data: [TeamMemberUpdateArgs!]!): [TeamMember]
+  deleteTeamMember(where: TeamMemberWhereUniqueInput!): TeamMember
+  deleteTeamMembers(where: [TeamMemberWhereUniqueInput!]!): [TeamMember]
   endSession: Boolean!
   authenticateUserWithPassword(email: String!, password: String!): UserAuthenticationWithPasswordResult
   createInitialUser(data: CreateInitialUserInput!): UserAuthenticationWithPasswordSuccess!
@@ -362,6 +439,9 @@ type Query {
   tag(where: TagWhereUniqueInput!): Tag
   tags(where: TagWhereInput! = {}, orderBy: [TagOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: TagWhereUniqueInput): [Tag!]
   tagsCount(where: TagWhereInput! = {}): Int
+  teamMember(where: TeamMemberWhereUniqueInput!): TeamMember
+  teamMembers(where: TeamMemberWhereInput! = {}, orderBy: [TeamMemberOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: TeamMemberWhereUniqueInput): [TeamMember!]
+  teamMembersCount(where: TeamMemberWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }

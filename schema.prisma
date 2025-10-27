@@ -41,3 +41,15 @@ model Tag {
   name  String @default("")
   posts Post[] @relation("Post_tags")
 }
+
+model TeamMember {
+  id               String  @id @default(cuid())
+  avatar_id        String?
+  avatar_filesize  Int?
+  avatar_width     Int?
+  avatar_height    Int?
+  avatar_extension String?
+  name             String  @default("")
+  title            String  @default("")
+  roleDescription  String  @default("")
+}

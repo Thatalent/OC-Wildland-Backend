@@ -16,6 +16,7 @@ import {
   password,
   timestamp,
   select,
+  image,
 } from '@keystone-6/core/fields'
 
 // the document field is a more complicated field, so it has it's own package
@@ -155,4 +156,14 @@ export const lists = {
       posts: relationship({ ref: 'Post.tags', many: true }),
     },
   }),
+
+  TeamMember: list({
+    access: allowAll,
+    fields: {
+      avatar: image({storage:'local_image_storage'}),
+      name: text({ validation: { isRequired: true } }),
+      title: text(),
+      roleDescription: text({ ui: { displayMode: 'textarea' } }),
+    }
+  })
 } satisfies Lists
