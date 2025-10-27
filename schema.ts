@@ -80,6 +80,20 @@ export const lists = {
     },
   }),
 
+  Program: list({
+    access: allowAll,
+    fields: {
+      title: text({ validation: { isRequired: true}}),
+      description: text({validation: {isRequired:true}}),
+      date: text({validation: {isRequired:true}}),
+      startTime: text({validation: {isRequired:true}}),
+      endTime: text({validation: {isRequired:true}}),
+      location: text({validation: {isRequired:true}}),
+      capacity: text({validation: {isRequired:true}}),
+      cost: text({validation: {isRequired:true}}),
+    }
+  }),
+
   Post: list({
     // WARNING
     //   for this starter project, anyone can create, query, update and delete anything
