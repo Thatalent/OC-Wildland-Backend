@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:16.3
+    environment:
+      POSTGRES_USER: ofca.dev
+      POSTGRES_PASSWORD: ofca.dev.pw
+      POSTGRES_DB: ofca_v2
+    volumes:
+      - ./.data/pg:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  keystone:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
