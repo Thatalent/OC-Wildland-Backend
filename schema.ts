@@ -16,6 +16,7 @@ import {
   password,
   timestamp,
   select,
+  calendarDay,
 } from '@keystone-6/core/fields'
 
 // the document field is a more complicated field, so it has it's own package
@@ -135,7 +136,87 @@ export const lists = {
     },
   }),
 
-  // this last list is our Tag list, it only has a name field for now
+  Consultation: list({
+    access: allowAll,
+    hooks: {
+      validateInput: async ({ resolvedData, addValidationError, context, operation, item }) => {
+        const willCheckOnUpdate =
+          operation === 'update' &&
+          ((resolvedData.selectDate && resolvedData.selectDate !== item?.selectDate) ||
+            (resolvedData.preferredTime && resolvedData.preferredTime !== item?.preferredTime));
+
+        if (operation === 'create' || willCheckOnUpdate) {
+          let date: any = resolvedData.selectDate as any;
+          const normalizePreferredTime = (input: any) => {
+            if (input == null) return input;
+            const s = String(input).toUpperCase().trim();
+            const compact = s.replace(/[:.\s]+/g, '');
+            const noZero = compact.replace(/^0+/, '');
+            const m = noZero.match(/^(\d{1,2})(AM|PM)$/);
+            if (m) {
+              const hour = parseInt(m[1], 10);
+              const ampm = m[2];
+              return `${hour} ${ampm}`;
+            }
+            return String(input).trim();
+          };
+
+          let time = normalizePreferredTime(resolvedData.preferredTime as any);
+          if (time) resolvedData.preferredTime = time as any;
+          
+          if (date instanceof Date) {
+            date = date.toISOString().slice(0, 10);
+          } else if (typeof date === 'object' && date !== null && typeof (date as any).toISOString === 'function') {
+            date = new Date(date).toISOString().slice(0, 10);
+          }
+          
+          if (date && time) {
+            const existing = await context.db.Consultation.findMany({
+              where: {
+                selectDate: { equals: date },
+                preferredTime: { equals: time },
+              },
+              take: 1,
+            });
+            if (existing && existing.length > 0) {
+              addValidationError('This time is already booked for the selected date. Please choose another time.');
+            }
+          }
+        }
+      },
+    },
+    fields: {
+      Schedule_a_Consultation: text({
+        ui: {
+          description: 'Free 30-minute Consultation\n\nSpeak with our training experts about your certification needs.',
+          itemView: { fieldMode: 'read' },
+        },
+        validation: { isRequired: true },
+      }),
+      selectDate: calendarDay({
+        ui: {
+          description: 'Choose a date for your consultation.',
+        },
+        validation: { isRequired: true },
+      }),
+      preferredTime: select({
+        options: [
+          { label: '9 AM', value: '9 AM' },
+          { label: '10 AM', value: '10 AM' },
+          { label: '1 PM', value: '1 PM' },
+          { label: '2 PM', value: '2 PM' },
+          { label: '3 PM', value: '3 PM' },
+          { label: '4 PM', value: '4 PM' },
+        ],
+        ui: {
+          displayMode: 'segmented-control',
+        },
+      }),
+      fullName: text({ validation: { isRequired: true } }),
+      email: text({ validation: { isRequired: true } }),
+    },
+  }),
+
   Tag: list({
     // WARNING
     //   for this starter project, anyone can create, query, update and delete anything
