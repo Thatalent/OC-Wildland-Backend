@@ -257,6 +257,89 @@ input TagRelateToManyForCreateInput {
   connect: [TagWhereUniqueInput!]
 }
 
+type Consultation {
+  id: ID!
+  Schedule_a_Consultation: String
+  selectDate: CalendarDay
+  preferredTime: String
+  fullName: String
+  email: String
+}
+
+scalar CalendarDay @specifiedBy(url: "https://datatracker.ietf.org/doc/html/rfc3339#section-5.6")
+
+input ConsultationWhereUniqueInput {
+  id: ID
+}
+
+input ConsultationWhereInput {
+  AND: [ConsultationWhereInput!]
+  OR: [ConsultationWhereInput!]
+  NOT: [ConsultationWhereInput!]
+  id: IDFilter
+  Schedule_a_Consultation: StringFilter
+  selectDate: CalendarDayFilter
+  preferredTime: StringNullableFilter
+  fullName: StringFilter
+  email: StringFilter
+}
+
+input CalendarDayFilter {
+  equals: CalendarDay
+  in: [CalendarDay!]
+  notIn: [CalendarDay!]
+  lt: CalendarDay
+  lte: CalendarDay
+  gt: CalendarDay
+  gte: CalendarDay
+  not: CalendarDayFilter
+}
+
+input StringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: StringNullableFilter
+}
+
+input ConsultationOrderByInput {
+  id: OrderDirection
+  Schedule_a_Consultation: OrderDirection
+  selectDate: OrderDirection
+  preferredTime: OrderDirection
+  fullName: OrderDirection
+  email: OrderDirection
+}
+
+input ConsultationUpdateInput {
+  Schedule_a_Consultation: String
+  selectDate: CalendarDay
+  preferredTime: String
+  fullName: String
+  email: String
+}
+
+input ConsultationUpdateArgs {
+  where: ConsultationWhereUniqueInput!
+  data: ConsultationUpdateInput!
+}
+
+input ConsultationCreateInput {
+  Schedule_a_Consultation: String
+  selectDate: CalendarDay
+  preferredTime: String
+  fullName: String
+  email: String
+}
+
 type Tag {
   id: ID!
   name: String
@@ -321,6 +404,12 @@ type Mutation {
   updatePosts(data: [PostUpdateArgs!]!): [Post]
   deletePost(where: PostWhereUniqueInput!): Post
   deletePosts(where: [PostWhereUniqueInput!]!): [Post]
+  createConsultation(data: ConsultationCreateInput!): Consultation
+  createConsultations(data: [ConsultationCreateInput!]!): [Consultation]
+  updateConsultation(where: ConsultationWhereUniqueInput!, data: ConsultationUpdateInput!): Consultation
+  updateConsultations(data: [ConsultationUpdateArgs!]!): [Consultation]
+  deleteConsultation(where: ConsultationWhereUniqueInput!): Consultation
+  deleteConsultations(where: [ConsultationWhereUniqueInput!]!): [Consultation]
   createTag(data: TagCreateInput!): Tag
   createTags(data: [TagCreateInput!]!): [Tag]
   updateTag(where: TagWhereUniqueInput!, data: TagUpdateInput!): Tag
@@ -359,6 +448,9 @@ type Query {
   post(where: PostWhereUniqueInput!): Post
   posts(where: PostWhereInput! = {}, orderBy: [PostOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: PostWhereUniqueInput): [Post!]
   postsCount(where: PostWhereInput! = {}): Int
+  consultation(where: ConsultationWhereUniqueInput!): Consultation
+  consultations(where: ConsultationWhereInput! = {}, orderBy: [ConsultationOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: ConsultationWhereUniqueInput): [Consultation!]
+  consultationsCount(where: ConsultationWhereInput! = {}): Int
   tag(where: TagWhereUniqueInput!): Tag
   tags(where: TagWhereInput! = {}, orderBy: [TagOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: TagWhereUniqueInput): [Tag!]
   tagsCount(where: TagWhereInput! = {}): Int
