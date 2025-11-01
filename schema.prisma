@@ -36,6 +36,15 @@ model Post {
   @@index([authorId])
 }
 
+model Consultation {
+  id                      String   @id @default(cuid())
+  Schedule_a_Consultation String   @default("")
+  selectDate              DateTime @postgresql.Date
+  preferredTime           String?
+  fullName                String   @default("")
+  email                   String   @default("")
+}
+
 model Tag {
   id    String @id @default(cuid())
   name  String @default("")
