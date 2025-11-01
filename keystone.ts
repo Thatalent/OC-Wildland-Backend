@@ -19,6 +19,7 @@ dotenv.config()
 
 console.log('DATABASE_URL:', process.env.DATABASE_URL)
 
+// Wrap Keystone config with authentication
 export default withAuth(
   config({
     db: {
@@ -27,5 +28,19 @@ export default withAuth(
     },
     lists,
     session,
+
+    // ===== CORS configuration =====
+    // This allows your frontend running on http://localhost:3000
+    // to access the Keystone GraphQL API without CORS errors
+    server: {
+      cors: {
+        origin: [
+          'http://localhost:3000',
+          'http://localhost:3001',
+          'http://localhost:3002', 
+        ],
+        credentials: true,                 
+    },
+  },
   })
 )
