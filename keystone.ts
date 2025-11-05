@@ -21,9 +21,20 @@ console.log('DATABASE_URL:', process.env.DATABASE_URL)
 
 export default withAuth(
   config({
+    server: {
+      port: Number(process.env.PORT) || 4000,
+      cors: {
+        origin: [
+          'http://localhost:3000',
+          'http://127.0.0.1:3000',
+          'http://localhost:8080',
+        ],
+        credentials: true,
+      },
+    },
     db: {
-      provider: 'postgresql',
-      url: process.env.DATABASE_URL || 'DATABASE_URL_TO_REPLACE',
+      provider: 'sqlite',
+      url: 'file:./keystone.db',
     },
     lists,
     session,
