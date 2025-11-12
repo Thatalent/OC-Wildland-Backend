@@ -20,9 +20,30 @@ model User {
   createdAt DateTime? @default(now())
 }
 
-model Footer {
-  id   String @id @default(cuid())
-  text Json   @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+model Image {
+  id                 String  @id @default(cuid())
+  imageUrl_id        String?
+  imageUrl_filesize  Int?
+  imageUrl_width     Int?
+  imageUrl_height    Int?
+  imageUrl_extension String?
+  name               String  @default("")
+  altText            String  @default("")
+  pageRoute          String  @default("")
+}
+
+model PreFooter {
+  id               String  @id @default(cuid())
+  pageRoute        String  @default("")
+  title            String  @default("")
+  subtitle         String  @default("")
+  quote            String  @default("")
+  quoteAuthor      String  @default("")
+  showQuote        Boolean @default(false)
+  ctaPrimaryText   String  @default("Enroll Now")
+  ctaPrimaryLink   String  @default("/training")
+  ctaSecondaryText String  @default("Schedule Consultation")
+  ctaSecondaryLink String  @default("/consultation")
 }
 
 model Post {

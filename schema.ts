@@ -15,6 +15,8 @@ import {
   relationship,
   password,
   timestamp,
+  checkbox,
+  image,
   select,
 } from '@keystone-6/core/fields'
 
@@ -60,13 +62,45 @@ export const lists = {
     },
   }),
 
-  Footer: list({
+  /* Footer: list({
     access: allowAll,
     fields: {
       text: document({
           formatting: true,
           validation: { isRequired: true } }),
     },
+  }), */
+
+  Image: list({
+    access: allowAll,
+    fields:{
+      imageUrl: image({storage: "my_local_images"}),
+      name: text({validation: {isRequired: true}}),
+      altText: text(),
+      pageRoute: text({
+        isFilterable: true,
+      }),
+    }
+  }),
+
+  PreFooter: list({
+    access: allowAll,
+
+    fields: {
+      pageRoute: text({
+        validation: {isRequired: true},
+        isFilterable: true,
+      }),
+      title: text({validation: {isRequired: true}}),
+      subtitle: text({validation: {isRequired: true}}),
+      quote: text(),
+      quoteAuthor: text(),
+      showQuote: checkbox({defaultValue: false}),
+      ctaPrimaryText: text({defaultValue: "Enroll Now"}),
+      ctaPrimaryLink: text({defaultValue: "/training"}),
+      ctaSecondaryText: text({defaultValue: "Schedule Consultation"}),
+      ctaSecondaryLink: text({defaultValue: "/consultation"}),
+    }
   }),
 
   Post: list({
