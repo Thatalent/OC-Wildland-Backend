@@ -60,15 +60,15 @@ export const lists = {
     },
   }),
 
-  
-  // Footer: list({
-  //   access: allowAll,
-  //   fields: {
-  //     text: document({
-  //         formatting: true,
-  //         validation: { isRequired: true } }),
-  //   },
-  // }),
+  // Used for storing images used in the frontend
+  Image: list({
+    access: allowAll,
+    fields: {
+      imageUrl: image({ storage: 'my_local_images' }),
+      name: text({ validation: { isRequired: true } }),
+      altText: text(),
+    },
+  }),
 
   Testimony: list({
     access: allowAll,
