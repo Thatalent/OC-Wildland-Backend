@@ -206,6 +206,56 @@ input ImageCreateInput {
   altText: String
 }
 
+type Testimony {
+  id: ID!
+  name: String
+  role: String
+  message: String
+  imageUrl: String
+}
+
+input TestimonyWhereUniqueInput {
+  id: ID
+}
+
+input TestimonyWhereInput {
+  AND: [TestimonyWhereInput!]
+  OR: [TestimonyWhereInput!]
+  NOT: [TestimonyWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  role: StringFilter
+  message: StringFilter
+  imageUrl: StringFilter
+}
+
+input TestimonyOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  role: OrderDirection
+  message: OrderDirection
+  imageUrl: OrderDirection
+}
+
+input TestimonyUpdateInput {
+  name: String
+  role: String
+  message: String
+  imageUrl: String
+}
+
+input TestimonyUpdateArgs {
+  where: TestimonyWhereUniqueInput!
+  data: TestimonyUpdateInput!
+}
+
+input TestimonyCreateInput {
+  name: String
+  role: String
+  message: String
+  imageUrl: String
+}
+
 type Post {
   id: ID!
   title: String
@@ -344,6 +394,12 @@ type Mutation {
   updateImages(data: [ImageUpdateArgs!]!): [Image]
   deleteImage(where: ImageWhereUniqueInput!): Image
   deleteImages(where: [ImageWhereUniqueInput!]!): [Image]
+  createTestimony(data: TestimonyCreateInput!): Testimony
+  createTestimonies(data: [TestimonyCreateInput!]!): [Testimony]
+  updateTestimony(where: TestimonyWhereUniqueInput!, data: TestimonyUpdateInput!): Testimony
+  updateTestimonies(data: [TestimonyUpdateArgs!]!): [Testimony]
+  deleteTestimony(where: TestimonyWhereUniqueInput!): Testimony
+  deleteTestimonies(where: [TestimonyWhereUniqueInput!]!): [Testimony]
   createPost(data: PostCreateInput!): Post
   createPosts(data: [PostCreateInput!]!): [Post]
   updatePost(where: PostWhereUniqueInput!, data: PostUpdateInput!): Post
@@ -385,6 +441,9 @@ type Query {
   image(where: ImageWhereUniqueInput!): Image
   images(where: ImageWhereInput! = {}, orderBy: [ImageOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: ImageWhereUniqueInput): [Image!]
   imagesCount(where: ImageWhereInput! = {}): Int
+  testimony(where: TestimonyWhereUniqueInput!): Testimony
+  testimonies(where: TestimonyWhereInput! = {}, orderBy: [TestimonyOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: TestimonyWhereUniqueInput): [Testimony!]
+  testimoniesCount(where: TestimonyWhereInput! = {}): Int
   post(where: PostWhereUniqueInput!): Post
   posts(where: PostWhereInput! = {}, orderBy: [PostOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: PostWhereUniqueInput): [Post!]
   postsCount(where: PostWhereInput! = {}): Int
