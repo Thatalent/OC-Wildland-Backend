@@ -31,6 +31,14 @@ model Image {
   altText            String  @default("")
 }
 
+model Testimony {
+  id       String @id @default(cuid())
+  name     String @default("")
+  role     String @default("")
+  message  String @default("")
+  imageUrl String @default("")
+}
+
 model Post {
   id       String  @id @default(cuid())
   title    String  @default("")

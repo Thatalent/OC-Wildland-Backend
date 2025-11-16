@@ -24,8 +24,11 @@ const baseUrl = process.env.BASE_URL || 'http://localhost:3000'
 export default withAuth(
   config({
     db: {
+      //  provider: 'sqlite',
+      // url: 'file:./app.db' ,
       provider: 'postgresql',
       url: process.env.DATABASE_URL || 'DATABASE_URL_TO_REPLACE',
+      
     },
     lists,
     session,
