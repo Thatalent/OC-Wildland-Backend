@@ -19,6 +19,8 @@ dotenv.config()
 
 console.log('DATABASE_URL:', process.env.DATABASE_URL)
 
+const baseUrl = process.env.BASE_URL || 'http://localhost:3000'
+
 export default withAuth(
   config({
     server: {
@@ -33,10 +35,32 @@ export default withAuth(
       },
     },
     db: {
-      provider: 'sqlite',
-      url: 'file:./keystone.db',
+      //  provider: 'sqlite',
+      // url: 'file:./app.db' ,
+      provider: 'postgresql',
+      url: process.env.DATABASE_URL || 'DATABASE_URL_TO_REPLACE',
+      
     },
     lists,
     session,
+    /** config */
+    storage: {
+    my_local_images: {
+    // Images that use this store will be stored on the local machine
+    kind: 'local',
+    // This store is used for the image field type
+    type: 'image',
+    // The URL that is returned in the Keystone GraphQL API
+    generateUrl: path => `${baseUrl}/images${path}`,
+    // The route that will be created in Keystone's backend to serve the images
+    serverRoute: {
+      path: '/images',
+    },
+    // Set serverRoute to null if you don't want a route to be created in Keystone
+    // serverRoute: null
+    storagePath: 'public/images',
+  },
+  /** more storage */
+}
   })
 )
