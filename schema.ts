@@ -14,7 +14,7 @@ import {
   relationship,
   password,
   timestamp,
-  select,
+  image,
 } from '@keystone-6/core/fields'
 
 // the document field is a more complicated field, so it has its own package
@@ -40,14 +40,23 @@ export const lists = {
     },
   }),
 
-  // ===== FOOTER =====
-  Footer: list({
+  // Used for storing images used in the frontend
+  Image: list({
     access: allowAll,
     fields: {
-      text: document({
-        formatting: true,
-        validation: { isRequired: true },
-      }),
+      imageUrl: image({ storage: 'my_local_images' }),
+      name: text({ validation: { isRequired: true } }),
+      altText: text(),
+    },
+  }),
+
+  Testimony: list({
+    access: allowAll,
+    fields: {
+      name: text({ validation: { isRequired: true } }),
+      role: text(),
+      message: text({ ui: { displayMode: 'textarea' } }),
+      imageUrl: text(),
     },
   }),
 
