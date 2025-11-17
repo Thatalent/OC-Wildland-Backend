@@ -16,6 +16,7 @@ import {
   password,
   timestamp,
   image,
+  select
 } from '@keystone-6/core/fields'
 
 // the document field is a more complicated field, so it has it's own package
