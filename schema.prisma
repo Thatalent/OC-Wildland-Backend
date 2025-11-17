@@ -20,9 +20,23 @@ model User {
   createdAt DateTime? @default(now())
 }
 
-model Footer {
-  id   String @id @default(cuid())
-  text Json   @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+model Image {
+  id                 String  @id @default(cuid())
+  imageUrl_id        String?
+  imageUrl_filesize  Int?
+  imageUrl_width     Int?
+  imageUrl_height    Int?
+  imageUrl_extension String?
+  name               String  @default("")
+  altText            String  @default("")
+}
+
+model Testimony {
+  id       String @id @default(cuid())
+  name     String @default("")
+  role     String @default("")
+  message  String @default("")
+  imageUrl String @default("")
 }
 
 model Post {
