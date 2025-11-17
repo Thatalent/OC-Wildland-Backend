@@ -16,6 +16,7 @@ import {
   password,
   timestamp,
   image,
+  select
 } from '@keystone-6/core/fields'
 
 // the document field is a more complicated field, so it has it's own package
@@ -27,6 +28,34 @@ import { document } from '@keystone-6/fields-document'
 import { type Lists } from '.keystone/types'
 
 export const lists = {
+  ContactSubmission: list({
+    access: allowAll,
+    ui: {
+      labelField: 'email',
+    },
+    fields: {
+      name: text({ validation: { isRequired: true } }),
+      email: text({
+        validation: { isRequired: true },
+        isIndexed: true,
+      }),
+      subject: select({
+        type: 'enum',
+        options: [
+          { label: 'General Inquiry', value: 'general' },
+          { label: 'Training Request', value: 'training' },
+          { label: 'Consultation', value: 'consultation' },
+          { label: 'Support', value: 'support' },
+          { label: 'Other', value: 'other' },
+        ],
+        defaultValue: 'general',
+        ui: { displayMode: 'segmented-control' },
+      }),
+      message: text({ validation: { isRequired: true } }),
+      createdAt: timestamp({ defaultValue: { kind: 'now' } }),
+    },
+  }),
+
   User: list({
     // WARNING
     //   for this starter project, anyone can create, query, update and delete anything

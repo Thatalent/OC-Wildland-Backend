@@ -23,6 +23,17 @@ const baseUrl = process.env.BASE_URL || 'http://localhost:3000'
 
 export default withAuth(
   config({
+    server: {
+      port: Number(process.env.PORT) || 4000,
+      cors: {
+        origin: [
+          'http://localhost:3000',
+          'http://127.0.0.1:3000',
+          'http://localhost:8080',
+        ],
+        credentials: true,
+      },
+    },
     db: {
       //  provider: 'sqlite',
       // url: 'file:./app.db' ,

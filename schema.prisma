@@ -11,6 +11,17 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model ContactSubmission {
+  id        String                        @id @default(cuid())
+  name      String                        @default("")
+  email     String                        @default("")
+  subject   ContactSubmissionSubjectType? @default(general)
+  message   String                        @default("")
+  createdAt DateTime?                     @default(now())
+
+  @@index([email])
+}
+
 model User {
   id        String    @id @default(cuid())
   name      String    @default("")
@@ -54,4 +65,12 @@ model Tag {
   id    String @id @default(cuid())
   name  String @default("")
   posts Post[] @relation("Post_tags")
+}
+
+enum ContactSubmissionSubjectType {
+  general
+  training
+  consultation
+  support
+  other
 }
