@@ -19,7 +19,7 @@ dotenv.config();
 
 console.log("DATABASE_URL:", process.env.DATABASE_URL);
 
-const baseUrl = "http://localhost:3000";
+const baseUrl = "http://localhost:8080";
 
 export default withAuth(
   config({
