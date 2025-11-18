@@ -140,6 +140,72 @@ input PostRelateToManyForCreateInput {
   connect: [PostWhereUniqueInput!]
 }
 
+type Image {
+  id: ID!
+  imageUrl: ImageFieldOutput
+  name: String
+  altText: String
+}
+
+type ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  url: String!
+}
+
+enum ImageExtension {
+  jpg
+  png
+  webp
+  gif
+}
+
+input ImageWhereUniqueInput {
+  id: ID
+}
+
+input ImageWhereInput {
+  AND: [ImageWhereInput!]
+  OR: [ImageWhereInput!]
+  NOT: [ImageWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  altText: StringFilter
+}
+
+input ImageOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  altText: OrderDirection
+}
+
+input ImageUpdateInput {
+  imageUrl: ImageFieldInput
+  name: String
+  altText: String
+}
+
+input ImageFieldInput {
+  upload: Upload!
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+input ImageUpdateArgs {
+  where: ImageWhereUniqueInput!
+  data: ImageUpdateInput!
+}
+
+input ImageCreateInput {
+  imageUrl: ImageFieldInput
+  name: String
+  altText: String
+}
+
 type Testimony {
   id: ID!
   name: String
@@ -392,6 +458,12 @@ type Mutation {
   updateUsers(data: [UserUpdateArgs!]!): [User]
   deleteUser(where: UserWhereUniqueInput!): User
   deleteUsers(where: [UserWhereUniqueInput!]!): [User]
+  createImage(data: ImageCreateInput!): Image
+  createImages(data: [ImageCreateInput!]!): [Image]
+  updateImage(where: ImageWhereUniqueInput!, data: ImageUpdateInput!): Image
+  updateImages(data: [ImageUpdateArgs!]!): [Image]
+  deleteImage(where: ImageWhereUniqueInput!): Image
+  deleteImages(where: [ImageWhereUniqueInput!]!): [Image]
   createTestimony(data: TestimonyCreateInput!): Testimony
   createTestimonies(data: [TestimonyCreateInput!]!): [Testimony]
   updateTestimony(where: TestimonyWhereUniqueInput!, data: TestimonyUpdateInput!): Testimony
@@ -442,6 +514,9 @@ type Query {
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput! = {}, orderBy: [UserOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: UserWhereUniqueInput): [User!]
   usersCount(where: UserWhereInput! = {}): Int
+  image(where: ImageWhereUniqueInput!): Image
+  images(where: ImageWhereInput! = {}, orderBy: [ImageOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: ImageWhereUniqueInput): [Image!]
+  imagesCount(where: ImageWhereInput! = {}): Int
   testimony(where: TestimonyWhereUniqueInput!): Testimony
   testimonies(where: TestimonyWhereInput! = {}, orderBy: [TestimonyOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: TestimonyWhereUniqueInput): [Testimony!]
   testimoniesCount(where: TestimonyWhereInput! = {}): Int
