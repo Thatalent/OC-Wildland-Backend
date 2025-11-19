@@ -40,15 +40,17 @@ model Testimony {
 }
 
 model Program {
-  id          String @id @default(cuid())
-  title       String @default("")
-  description String @default("")
-  date        String @default("")
-  startTime   String @default("")
-  endTime     String @default("")
-  location    String @default("")
-  capacity    String @default("")
-  cost        String @default("")
+  id          String   @id @default(cuid())
+  title       String   @default("")
+  description String   @default("")
+  startDate   DateTime
+  endDate     DateTime
+  startTime   String   @default("")
+  endTime     String   @default("")
+  location    String   @default("")
+  capacity    Int
+  cost        Int
+  variant     String   @default("cpr")
 }
 
 model Post {

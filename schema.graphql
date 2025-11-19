@@ -260,12 +260,14 @@ type Program {
   id: ID!
   title: String
   description: String
-  date: String
+  startDate: DateTime
+  endDate: DateTime
   startTime: String
   endTime: String
   location: String
-  capacity: String
-  cost: String
+  capacity: Int
+  cost: Int
+  variant: String
 }
 
 input ProgramWhereUniqueInput {
@@ -279,35 +281,63 @@ input ProgramWhereInput {
   id: IDFilter
   title: StringFilter
   description: StringFilter
-  date: StringFilter
+  startDate: DateTimeFilter
+  endDate: DateTimeFilter
   startTime: StringFilter
   endTime: StringFilter
   location: StringFilter
-  capacity: StringFilter
-  cost: StringFilter
+  capacity: IntFilter
+  cost: IntFilter
+  variant: StringFilter
+}
+
+input DateTimeFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: DateTimeFilter
+}
+
+input IntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: IntFilter
 }
 
 input ProgramOrderByInput {
   id: OrderDirection
   title: OrderDirection
   description: OrderDirection
-  date: OrderDirection
+  startDate: OrderDirection
+  endDate: OrderDirection
   startTime: OrderDirection
   endTime: OrderDirection
   location: OrderDirection
   capacity: OrderDirection
   cost: OrderDirection
+  variant: OrderDirection
 }
 
 input ProgramUpdateInput {
   title: String
   description: String
-  date: String
+  startDate: DateTime
+  endDate: DateTime
   startTime: String
   endTime: String
   location: String
-  capacity: String
-  cost: String
+  capacity: Int
+  cost: Int
+  variant: String
 }
 
 input ProgramUpdateArgs {
@@ -318,12 +348,14 @@ input ProgramUpdateArgs {
 input ProgramCreateInput {
   title: String
   description: String
-  date: String
+  startDate: DateTime
+  endDate: DateTime
   startTime: String
   endTime: String
   location: String
-  capacity: String
-  cost: String
+  capacity: Int
+  cost: Int
+  variant: String
 }
 
 type Post {
