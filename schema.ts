@@ -66,7 +66,7 @@ export const lists = {
   Image: list({
     access: allowAll,
     fields: {
-      imageUrl: image({ storage: 'my_local_images' }),
+      imageUrl: image({ storage: 'local_image_storage' }),
       name: text({ validation: { isRequired: true } }),
       altText: text(),
     },
@@ -254,4 +254,37 @@ export const lists = {
       },
     },
   }),
+ TeamMember: list({
+    access: allowAll,
+    fields: {
+      avatar: image({storage:'local_image_storage'}),
+      name: text({ validation: { isRequired: true } }),
+      title: text({
+      hooks: {
+        resolveInput: ({ resolvedData }) => {
+          if (resolvedData.title) {
+            const words = resolvedData.title.split(/\s+/);
+            return words.slice(0, 2).join(' ');
+          }
+          return resolvedData.title;
+        },
+      },
+      ui: {
+        description: 'Maximum 2 words allowed',
+      },
+    }),
+      roleDescription: text({
+      ui: { displayMode: 'textarea', description: 'Maximum 20 words allowed' },
+      hooks: {
+        resolveInput: ({ resolvedData }) => {
+          if (resolvedData.roleDescription) {
+            const words = resolvedData.roleDescription.split(/\s+/);
+            return words.slice(0, 20).join(' ');
+          }
+          return resolvedData.roleDescription;
+        },
+      },
+    }),
+    }
+  })
 } satisfies Lists

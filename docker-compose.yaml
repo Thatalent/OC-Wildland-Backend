@@ -2,6 +2,7 @@ version: "3.8"
  
 services:
   postgres:
+    container_name: oc-wildland-postgres
     image: postgres:16.3
     environment:
       POSTGRES_USER: postgres
@@ -11,7 +12,6 @@ services:
       - ./.data/pg:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-    container_name: oc-wildland-postgres
 
 
   keystone:

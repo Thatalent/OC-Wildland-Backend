@@ -34,7 +34,7 @@ export default withAuth(
     session,
     /** config */
     storage: {
-    my_local_images: {
+    local_image_storage: {
     // Images that use this store will be stored on the local machine
     kind: 'local',
     // This store is used for the image field type
