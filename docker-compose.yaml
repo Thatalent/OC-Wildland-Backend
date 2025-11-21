@@ -1,16 +1,18 @@
 version: "3.8"
-
+ 
 services:
   postgres:
+    container_name: oc-wildland-postgres
     image: postgres:16.3
     environment:
-      POSTGRES_USER: ofca.dev
-      POSTGRES_PASSWORD: ofca.dev.pw
-      POSTGRES_DB: ofca_v2
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: oc_wildland
     volumes:
       - ./.data/pg:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+
 
   keystone:
     build:
