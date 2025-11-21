@@ -39,6 +39,20 @@ model Testimony {
   imageUrl String @default("")
 }
 
+model Program {
+  id          String   @id @default(cuid())
+  title       String   @default("")
+  description String   @default("")
+  startDate   DateTime
+  endDate     DateTime
+  startTime   String   @default("")
+  endTime     String   @default("")
+  location    String   @default("")
+  capacity    Int
+  cost        Int
+  variant     String   @default("cpr")
+}
+
 model Post {
   id       String  @id @default(cuid())
   title    String  @default("")

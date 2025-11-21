@@ -18,6 +18,8 @@ import {
   select,
   integer,
   image,
+  integer, 
+  select
 } from '@keystone-6/core/fields'
 
 // the document field is a more complicated field, so it has it's own package
@@ -80,6 +82,30 @@ export const lists = {
       message: text({ ui: { displayMode: 'textarea' } }),
       imageUrl: text(),
     },
+  }),
+
+  Program: list({
+    access: allowAll,
+    fields: {
+      title: text({ validation: { isRequired: true}}),
+      description: text({validation: {isRequired:true}}),
+      startDate: timestamp({ validation: { isRequired: true } }),
+      endDate: timestamp({ validation: { isRequired: true } }),      
+      startTime: text({validation: {isRequired:true}}),
+      endTime: text({validation: {isRequired:true}}),
+      location: text({validation: {isRequired:true}}),
+      capacity: integer({validation: {isRequired:true}}),
+      cost: integer({validation: {isRequired:true}}),
+      variant: select({
+        options: [
+          {label: "CPR", value: "cpr"},
+          { label: "Wildfire", value: "wildfire"}
+        ],
+        defaultValue: "cpr",
+        ui: {displayMode: "segmented-control"},
+        validation: { isRequired: true}
+      })
+    }
   }),
 
   Post: list({
