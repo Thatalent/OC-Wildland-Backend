@@ -457,6 +457,54 @@ input KPIstatsCreateInput {
   updatedAt: DateTime
 }
 
+type TeamMember {
+  id: ID!
+  avatar: ImageFieldOutput
+  name: String
+  title: String
+  roleDescription: String
+}
+
+input TeamMemberWhereUniqueInput {
+  id: ID
+}
+
+input TeamMemberWhereInput {
+  AND: [TeamMemberWhereInput!]
+  OR: [TeamMemberWhereInput!]
+  NOT: [TeamMemberWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  title: StringFilter
+  roleDescription: StringFilter
+}
+
+input TeamMemberOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  title: OrderDirection
+  roleDescription: OrderDirection
+}
+
+input TeamMemberUpdateInput {
+  avatar: ImageFieldInput
+  name: String
+  title: String
+  roleDescription: String
+}
+
+input TeamMemberUpdateArgs {
+  where: TeamMemberWhereUniqueInput!
+  data: TeamMemberUpdateInput!
+}
+
+input TeamMemberCreateInput {
+  avatar: ImageFieldInput
+  name: String
+  title: String
+  roleDescription: String
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -499,6 +547,12 @@ type Mutation {
   updatekpiStatistics(data: [KPIstatsUpdateArgs!]!): [KPIstats]
   deleteKPIstats(where: KPIstatsWhereUniqueInput!): KPIstats
   deletekpiStatistics(where: [KPIstatsWhereUniqueInput!]!): [KPIstats]
+  createTeamMember(data: TeamMemberCreateInput!): TeamMember
+  createTeamMembers(data: [TeamMemberCreateInput!]!): [TeamMember]
+  updateTeamMember(where: TeamMemberWhereUniqueInput!, data: TeamMemberUpdateInput!): TeamMember
+  updateTeamMembers(data: [TeamMemberUpdateArgs!]!): [TeamMember]
+  deleteTeamMember(where: TeamMemberWhereUniqueInput!): TeamMember
+  deleteTeamMembers(where: [TeamMemberWhereUniqueInput!]!): [TeamMember]
   endSession: Boolean!
   authenticateUserWithPassword(email: String!, password: String!): UserAuthenticationWithPasswordResult
   createInitialUser(data: CreateInitialUserInput!): UserAuthenticationWithPasswordSuccess!
@@ -540,6 +594,9 @@ type Query {
   kPIstats(where: KPIstatsWhereUniqueInput!): KPIstats
   kpiStatistics(where: KPIstatsWhereInput! = {}, orderBy: [KPIstatsOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: KPIstatsWhereUniqueInput): [KPIstats!]
   kpiStatisticsCount(where: KPIstatsWhereInput! = {}): Int
+  teamMember(where: TeamMemberWhereUniqueInput!): TeamMember
+  teamMembers(where: TeamMemberWhereInput! = {}, orderBy: [TeamMemberOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: TeamMemberWhereUniqueInput): [TeamMember!]
+  teamMembersCount(where: TeamMemberWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }
