@@ -376,6 +376,87 @@ input TagCreateInput {
   posts: PostRelateToManyForCreateInput
 }
 
+type KPIstats {
+  id: ID!
+  name: String
+  groupsTrained: Int
+  clientSatisfaction: Int
+  yearsOfExperience: Int
+  trainedFirefighters: Int
+  successRate: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input KPIstatsWhereUniqueInput {
+  id: ID
+}
+
+input KPIstatsWhereInput {
+  AND: [KPIstatsWhereInput!]
+  OR: [KPIstatsWhereInput!]
+  NOT: [KPIstatsWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  groupsTrained: IntFilter
+  clientSatisfaction: IntFilter
+  yearsOfExperience: IntFilter
+  trainedFirefighters: IntFilter
+  successRate: IntFilter
+  createdAt: DateTimeNullableFilter
+  updatedAt: DateTimeNullableFilter
+}
+
+input IntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: IntFilter
+}
+
+input KPIstatsOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  groupsTrained: OrderDirection
+  clientSatisfaction: OrderDirection
+  yearsOfExperience: OrderDirection
+  trainedFirefighters: OrderDirection
+  successRate: OrderDirection
+  createdAt: OrderDirection
+  updatedAt: OrderDirection
+}
+
+input KPIstatsUpdateInput {
+  name: String
+  groupsTrained: Int
+  clientSatisfaction: Int
+  yearsOfExperience: Int
+  trainedFirefighters: Int
+  successRate: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input KPIstatsUpdateArgs {
+  where: KPIstatsWhereUniqueInput!
+  data: KPIstatsUpdateInput!
+}
+
+input KPIstatsCreateInput {
+  name: String
+  groupsTrained: Int
+  clientSatisfaction: Int
+  yearsOfExperience: Int
+  trainedFirefighters: Int
+  successRate: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -412,6 +493,12 @@ type Mutation {
   updateTags(data: [TagUpdateArgs!]!): [Tag]
   deleteTag(where: TagWhereUniqueInput!): Tag
   deleteTags(where: [TagWhereUniqueInput!]!): [Tag]
+  createKPIstats(data: KPIstatsCreateInput!): KPIstats
+  createkpiStatistics(data: [KPIstatsCreateInput!]!): [KPIstats]
+  updateKPIstats(where: KPIstatsWhereUniqueInput!, data: KPIstatsUpdateInput!): KPIstats
+  updatekpiStatistics(data: [KPIstatsUpdateArgs!]!): [KPIstats]
+  deleteKPIstats(where: KPIstatsWhereUniqueInput!): KPIstats
+  deletekpiStatistics(where: [KPIstatsWhereUniqueInput!]!): [KPIstats]
   endSession: Boolean!
   authenticateUserWithPassword(email: String!, password: String!): UserAuthenticationWithPasswordResult
   createInitialUser(data: CreateInitialUserInput!): UserAuthenticationWithPasswordSuccess!
@@ -450,6 +537,9 @@ type Query {
   tag(where: TagWhereUniqueInput!): Tag
   tags(where: TagWhereInput! = {}, orderBy: [TagOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: TagWhereUniqueInput): [Tag!]
   tagsCount(where: TagWhereInput! = {}): Int
+  kPIstats(where: KPIstatsWhereUniqueInput!): KPIstats
+  kpiStatistics(where: KPIstatsWhereInput! = {}, orderBy: [KPIstatsOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: KPIstatsWhereUniqueInput): [KPIstats!]
+  kpiStatisticsCount(where: KPIstatsWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }
