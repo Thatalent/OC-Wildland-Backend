@@ -256,6 +256,108 @@ input TestimonyCreateInput {
   imageUrl: String
 }
 
+type Program {
+  id: ID!
+  title: String
+  description: String
+  startDate: DateTime
+  endDate: DateTime
+  startTime: String
+  endTime: String
+  location: String
+  capacity: Int
+  cost: Int
+  variant: String
+}
+
+input ProgramWhereUniqueInput {
+  id: ID
+}
+
+input ProgramWhereInput {
+  AND: [ProgramWhereInput!]
+  OR: [ProgramWhereInput!]
+  NOT: [ProgramWhereInput!]
+  id: IDFilter
+  title: StringFilter
+  description: StringFilter
+  startDate: DateTimeFilter
+  endDate: DateTimeFilter
+  startTime: StringFilter
+  endTime: StringFilter
+  location: StringFilter
+  capacity: IntFilter
+  cost: IntFilter
+  variant: StringFilter
+}
+
+input DateTimeFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: DateTimeFilter
+}
+
+input IntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: IntFilter
+}
+
+input ProgramOrderByInput {
+  id: OrderDirection
+  title: OrderDirection
+  description: OrderDirection
+  startDate: OrderDirection
+  endDate: OrderDirection
+  startTime: OrderDirection
+  endTime: OrderDirection
+  location: OrderDirection
+  capacity: OrderDirection
+  cost: OrderDirection
+  variant: OrderDirection
+}
+
+input ProgramUpdateInput {
+  title: String
+  description: String
+  startDate: DateTime
+  endDate: DateTime
+  startTime: String
+  endTime: String
+  location: String
+  capacity: Int
+  cost: Int
+  variant: String
+}
+
+input ProgramUpdateArgs {
+  where: ProgramWhereUniqueInput!
+  data: ProgramUpdateInput!
+}
+
+input ProgramCreateInput {
+  title: String
+  description: String
+  startDate: DateTime
+  endDate: DateTime
+  startTime: String
+  endTime: String
+  location: String
+  capacity: Int
+  cost: Int
+  variant: String
+}
+
 type Post {
   id: ID!
   title: String
@@ -529,6 +631,12 @@ type Mutation {
   updateTestimonies(data: [TestimonyUpdateArgs!]!): [Testimony]
   deleteTestimony(where: TestimonyWhereUniqueInput!): Testimony
   deleteTestimonies(where: [TestimonyWhereUniqueInput!]!): [Testimony]
+  createProgram(data: ProgramCreateInput!): Program
+  createPrograms(data: [ProgramCreateInput!]!): [Program]
+  updateProgram(where: ProgramWhereUniqueInput!, data: ProgramUpdateInput!): Program
+  updatePrograms(data: [ProgramUpdateArgs!]!): [Program]
+  deleteProgram(where: ProgramWhereUniqueInput!): Program
+  deletePrograms(where: [ProgramWhereUniqueInput!]!): [Program]
   createPost(data: PostCreateInput!): Post
   createPosts(data: [PostCreateInput!]!): [Post]
   updatePost(where: PostWhereUniqueInput!, data: PostUpdateInput!): Post
@@ -585,6 +693,9 @@ type Query {
   testimony(where: TestimonyWhereUniqueInput!): Testimony
   testimonies(where: TestimonyWhereInput! = {}, orderBy: [TestimonyOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: TestimonyWhereUniqueInput): [Testimony!]
   testimoniesCount(where: TestimonyWhereInput! = {}): Int
+  program(where: ProgramWhereUniqueInput!): Program
+  programs(where: ProgramWhereInput! = {}, orderBy: [ProgramOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: ProgramWhereUniqueInput): [Program!]
+  programsCount(where: ProgramWhereInput! = {}): Int
   post(where: PostWhereUniqueInput!): Post
   posts(where: PostWhereInput! = {}, orderBy: [PostOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: PostWhereUniqueInput): [Post!]
   postsCount(where: PostWhereInput! = {}): Int
